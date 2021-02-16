@@ -1,18 +1,47 @@
-const db = require('mongoose');
+const model = require('./model');
 
-
-db.Promise = global.Promise;
-db.connect('mongodb+srv://Retr0:<holacomo12>@cluster0.c2ysj.mongodb.net/<pruba_db>?retryWrites=true&w=majority',{useNewUrlParser:true,
-})
-console.log('[db] Conectadacon exito');
 const addMessage = (message)=>{
-    list.push(message);
+    const myMessage =  new model(message);
+    myMessage.save();
 }
-const getMessage = ()=>{
-    return list;
+const getMessage = async (filerUser)=>{
+    return new Promise((resolve,reject) => {
+        let filter = {}
+        if(filerUser !== null){
+         filter = { user:filerUser};
+        }
+         model.find(filter)
+        .populate('user')
+        .exec((error,populated)=>{
+            if (error) {
+                reject(error)
+                return false;
+            }
+            resolve(populated)
+        })
+         
+    })      
+}
+
+const updateText = async(id,message) =>{
+   const foundMessage = await model.findOne({
+       '_id': id
+   });
+   foundMessage.message = message;
+
+   const newMessage = await foundMessage.save();
+   return newMessage;
+   
+}
+const deleteMessage = (id)=>{
+ return model.deleteOne({
+    '_id':id
+});
 }
 
 module.exports = {
     add :addMessage,
     list :getMessage,
+    updateText: updateText,
+    deleteMessage:deleteMessage,
 }
