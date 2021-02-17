@@ -6,18 +6,18 @@ const controller = require('../chat/controller')
 
 router.get('/:userId',(req,res)=>{
     controller.getChat(req.params.userId)
-    .then((chatList)=>{
-        response.success(req,res,chatList,200);
+    .then((users)=>{
+        response.success(req,res,users,200);
     })
     .catch(e=>{response.error(req,res,'error inesperado',500,e)})
 })
 
 router.post('/',(req,res)=>{
     controller.addChat(req.body.users)
-    .then((addChat)=>{
-        response.success(req,res,addChat,201);
+    .then((data)=>{
+        response.success(req,res,data,201);
     })
-    .catch(e=>{response.error(req,res,'Informacion Invalida',400,'Error en el controlador',e)})
+    .catch(e=>{response.error(req,res,'Informacion Invalida',500,e)})
 })
 
 

@@ -1,7 +1,7 @@
 const model = require('./model');
 
-const addChat = (Chat) =>{
-const myChat = new model(Chat);
+const addChat = (chat) =>{
+const myChat = new model(chat);
 myChat.save();
 }
 

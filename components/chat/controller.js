@@ -10,8 +10,8 @@ const addChat = (users) =>{
 const fullChat = {
     users:users,
 }
-store.addChat(fullChat);
-resolve(fullChat)
+store.addChat(fullChat)
+resolve (fullChat);
 
  })
 }
