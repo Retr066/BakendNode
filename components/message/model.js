@@ -16,6 +16,7 @@ const mySchema = new Schema({
         required:true,
     },
     date: Date,
+    fiel: String,
 });
 
 const model = mongoose.model('Message',mySchema);
